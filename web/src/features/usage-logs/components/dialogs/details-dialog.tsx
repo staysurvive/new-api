@@ -74,7 +74,7 @@ import {
   isViolationFeeLog,
   getFirstResponseTimeColor,
   getResponseTimeColor,
-  getReasoningEffortVariant,
+  getLogReasoningEffort,
   renderAuditContent,
 } from '../../lib/format'
 import {
@@ -605,9 +605,7 @@ export function DetailsDialog(props: DetailsDialogProps) {
   const useChannel = other?.admin_info?.use_channel
   const channelChain =
     useChannel && useChannel.length > 0 ? useChannel.join(' → ') : undefined
-  const reasoningEffortVariant = getReasoningEffortVariant(
-    other?.reasoning_effort
-  )
+  const reasoningEffort = getLogReasoningEffort(props.log)
 
   return (
     <Dialog
@@ -1012,13 +1010,13 @@ export function DetailsDialog(props: DetailsDialogProps) {
         )}
 
         {/* Reasoning effort */}
-        {other?.reasoning_effort && (
+        {reasoningEffort && (
           <DetailRow
             label={t('Reasoning Effort')}
             value={
               <StatusBadge
-                label={other.reasoning_effort}
-                variant={reasoningEffortVariant}
+                label={reasoningEffort}
+                variant='grey'
                 size='sm'
                 copyable={false}
               />

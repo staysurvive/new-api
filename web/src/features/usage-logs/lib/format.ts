@@ -156,10 +156,14 @@ export function hasToolSurcharge(other: LogOtherData | null): boolean {
 /**
  * Parse the 'other' field from JSON string to object
  */
-export function parseLogOther(other: string): LogOtherData | null {
-  if (!other) return null
+export function parseLogOther(other: unknown): LogOtherData | null {
+  if (typeof other !== 'string' || !other) return null
   try {
-    return JSON.parse(other) as LogOtherData
+    const parsed: unknown = JSON.parse(other)
+    if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return null
+    }
+    return parsed as LogOtherData
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Failed to parse log other field:', error)
@@ -167,23 +171,26 @@ export function parseLogOther(other: string): LogOtherData | null {
   }
 }
 
-export function getReasoningEffortVariant(
-  effort: string | undefined
-): StatusBadgeProps['variant'] {
-  switch (effort?.trim().toLowerCase()) {
-    case 'max':
-    case 'xhigh':
-    case 'high':
-      return 'orange'
-    case 'medium':
-      return 'yellow'
-    case 'low':
-    case 'minimal':
-      return 'green'
-    case 'none':
-    default:
-      return 'grey'
+export function getLogReasoningEffort(log: UsageLog): string | null {
+  const normalize = (value: unknown): string | null => {
+    if (typeof value !== 'string') return null
+    const normalized = value.trim()
+    if (!normalized) return null
+    switch (normalized.toLowerCase()) {
+      case 'none':
+      case 'unknown':
+      case 'normal':
+      case 'default':
+        return null
+      default:
+        return normalized
+    }
   }
+
+  if (log.reasoning_effort != null) {
+    return normalize(log.reasoning_effort)
+  }
+  return normalize(parseLogOther(log.other)?.reasoning_effort)
 }
 
 /**

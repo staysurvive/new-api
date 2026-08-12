@@ -44,6 +44,7 @@ import { LOG_TYPE_ALL_VALUE } from '../../constants'
 import type { UsageLog } from '../../data/schema'
 import {
   formatModelName,
+  getLogReasoningEffort,
   getTieredBillingSummary,
   hasAnyCacheTokens,
   parseLogOther,
@@ -617,6 +618,26 @@ export function useCommonLogsColumns(isAdmin: boolean): ColumnDef<UsageLog>[] {
         )
       },
       meta: { mobileTitle: true },
+    },
+    {
+      accessorKey: 'reasoning_effort',
+      header: t('Reasoning Effort'),
+      cell: ({ row }) => {
+        if (!isDisplayableLogType(row.original.type)) return null
+        const effort = getLogReasoningEffort(row.original)
+        if (!effort) return <span className='text-muted-foreground/50'>—</span>
+        return (
+          <StatusBadge
+            label={effort}
+            variant='grey'
+            size='sm'
+            copyable={false}
+          />
+        )
+      },
+      meta: { label: t('Reasoning Effort') },
+      enableHiding: false,
+      size: 130,
     },
     {
       accessorKey: 'is_stream',
