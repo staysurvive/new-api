@@ -1,0 +1,2 @@
+{"file":".trellis/spec/guides/index.md","reason":"Apply shared pre-modification and cross-review checklists while auditing the landing surface."}
+{"file":".trellis/spec/backend/quality-guidelines.md","reason":"Use repository quality and regression-test expectations when reviewing the change set."}

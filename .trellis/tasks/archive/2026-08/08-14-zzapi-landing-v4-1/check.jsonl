@@ -1,0 +1,6 @@
+{"file":".trellis/spec/guides/index.md","reason":"Shared quality checklist and review routing."}
+{"file":".trellis/spec/guides/code-reuse-thinking-guide.md","reason":"Check timing/readiness ownership and prevent duplicated lifecycle logic."}
+{"file":".trellis/spec/guides/cross-layer-thinking-guide.md","reason":"Verify phase-to-CSS-to-accessibility and custom-home/theme boundaries end to end."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/motion-timeline.md","reason":"Validate causal animation order, stationary hold, handoff, settlement, and watchdog placement."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/visual-topology.md","reason":"Validate Logo scale, static desktop hierarchy, mobile reading order, contrast, and viewport reveal."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/verification-risk.md","reason":"Execute the required automated, browser, accessibility, performance, i18n, and regression gates."}

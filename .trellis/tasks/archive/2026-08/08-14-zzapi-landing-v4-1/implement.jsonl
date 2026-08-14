@@ -1,0 +1,6 @@
+{"file":".trellis/spec/guides/index.md","reason":"Shared pre-development checklist and thinking-guide routing."}
+{"file":".trellis/spec/guides/code-reuse-thinking-guide.md","reason":"Keep one auditable opening scheduler/readiness owner and avoid duplicate timing contracts."}
+{"file":".trellis/spec/guides/cross-layer-thinking-guide.md","reason":"Trace phase state through DOM, CSS, focus, custom-home gating, and final rendering."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/motion-timeline.md","reason":"Exact V4 timing conflicts, phase ownership, fallback risks, and safe V4.1 lifecycle proposal."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/visual-topology.md","reason":"Measured Logo alpha bounds, desktop route targets, mobile topology, contrast, and viewport constraints."}
+{"file":".trellis/tasks/08-14-zzapi-landing-v4-1/research/verification-risk.md","reason":"Regression, accessibility, decode, i18n, performance, test, and browser-verification requirements."}

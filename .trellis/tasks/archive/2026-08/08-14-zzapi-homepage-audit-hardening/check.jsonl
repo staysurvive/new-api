@@ -1,0 +1,2 @@
+{"file":".trellis/spec/guides/index.md","reason":"Check findings for false positives, scope drift, reuse issues, and missing boundary cases."}
+{"file":".trellis/spec/backend/quality-guidelines.md","reason":"Verify final audit fixes against repository quality and test standards."}
