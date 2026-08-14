@@ -122,6 +122,22 @@ nano docker-compose.yml
 docker-compose up -d
 ```
 
+### Build and Run the Current Source Checkout
+
+The default `docker-compose.yml` uses the published `calciumion/new-api:latest` image. To run the code currently in this checkout, use the override file so Docker builds both the frontend and backend from the local source:
+
+```bash
+# Copy the current source checkout, including your modifications, to the server
+cd new-api
+
+# Build and start the current source
+docker compose -f docker-compose.yml -f docker-compose.current.yml up -d --build
+```
+
+The production `Dockerfile` embeds the frontend build in the backend image. `docker-compose.dev.yml` is a development-only setup: it builds the backend and expects the frontend Rsbuild server to run separately.
+
+Before exposing the service publicly, replace the default database and Redis passwords in `docker-compose.yml`, set a stable `SESSION_SECRET`, and configure HTTPS-related settings for your reverse proxy.
+
 <details>
 <summary><strong>Using Docker Commands</strong></summary>
 

@@ -1,0 +1,10 @@
+# Compose override for building and running the current source checkout.
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.current.yml up -d --build
+
+services:
+  new-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zzapi-new-api:current

@@ -122,6 +122,22 @@ nano docker-compose.yml
 docker-compose up -d
 ```
 
+### 构建并运行当前源码
+
+根目录的 `docker-compose.yml` 默认使用已发布的 `calciumion/new-api:latest` 镜像。如果要运行当前目录中的修改，请使用覆盖文件，让 Docker 从本地源码同时构建前端和后端：
+
+```bash
+# 将包含当前修改的源码目录复制到服务器
+cd new-api
+
+# 构建并启动当前源码
+docker compose -f docker-compose.yml -f docker-compose.current.yml up -d --build
+```
+
+生产环境的 `Dockerfile` 会将前端构建结果嵌入后端镜像。`docker-compose.dev.yml` 仅用于开发：它只构建后端，前端需要另外启动 Rsbuild 开发服务器。
+
+正式对外提供服务前，请替换 `docker-compose.yml` 中默认的数据库和 Redis 密码，设置稳定的 `SESSION_SECRET`，并根据反向代理配置 HTTPS 相关选项。
+
 <details>
 <summary><strong>使用 Docker 命令</strong></summary>
 
