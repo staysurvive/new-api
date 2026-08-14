@@ -138,7 +138,7 @@ export function Features(_props: FeaturesProps) {
       visual: (
         <div className='mt-4 flex items-center gap-3'>
           <div className='flex -space-x-2'>
-            {['API', 'SDK', 'CLI', 'Docs'].map((n) => (
+            {['API', 'SDK', 'CLI', t('Docs')].map((n) => (
               <div
                 key={n}
                 className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold'
@@ -180,7 +180,7 @@ export function Features(_props: FeaturesProps) {
   ]
 
   return (
-    <section className='relative z-10 px-6 py-24 md:py-32'>
+    <section id='capabilities' className='relative z-10 px-6 py-24 md:py-32'>
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 max-w-lg'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>

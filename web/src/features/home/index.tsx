@@ -16,7 +16,13 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useCallback, useEffect, useRef } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PublicLayout } from '@/components/layout'
@@ -26,8 +32,16 @@ import { useTheme } from '@/context/theme-provider'
 import { isLikelyHtml } from '@/lib/content-format'
 import { useAuthStore } from '@/stores/auth-store'
 
-import { CTA, Features, Hero, HowItWorks, Stats } from './components'
+import {
+  CTA,
+  Features,
+  Hero,
+  HowItWorks,
+  LandingEntrance,
+  Stats,
+} from './components'
 import { useHomePageContent } from './hooks'
+import { shouldRenderCustomHome, type OpeningPhase } from './types'
 
 export function Home() {
   const { i18n, t } = useTranslation()
@@ -35,22 +49,47 @@ export function Home() {
   const { resolvedTheme } = useTheme()
   const { auth } = useAuthStore()
   const isAuthenticated = !!auth.user
-  const { content, isLoaded, isUrl } = useHomePageContent()
+  const { content, isUrl } = useHomePageContent()
+  const initialContentRef = useRef(Boolean(content))
+  const [openingPhase, setOpeningPhase] = useState<OpeningPhase>(() =>
+    content ? 'ambient' : 'signal'
+  )
+  const landingLogo = '/landing-brand-core.png'
+  const showCustomContent = shouldRenderCustomHome(
+    content,
+    initialContentRef.current,
+    openingPhase
+  )
 
   const syncIframePreferences = useCallback(() => {
+    let iframeUrl: URL
+    try {
+      iframeUrl = new URL(content.trim())
+    } catch {
+      return
+    }
+    if (iframeUrl.protocol !== 'http:' && iframeUrl.protocol !== 'https:') {
+      return
+    }
+
+    // The sandbox intentionally omits allow-same-origin, so the frame has an
+    // opaque origin and cannot receive a concrete URL target. These messages
+    // contain only non-sensitive display preferences.
+    const targetOrigin = '*'
+
     try {
       iframeRef.current?.contentWindow?.postMessage(
         { themeMode: resolvedTheme },
-        '*'
+        targetOrigin
       )
       iframeRef.current?.contentWindow?.postMessage(
         { lang: i18n.language },
-        '*'
+        targetOrigin
       )
     } catch {
       // Cross-origin frames may reject access while navigating.
     }
-  }, [i18n.language, resolvedTheme])
+  }, [content, i18n.language, resolvedTheme])
 
   useEffect(() => {
     if (isUrl) {
@@ -58,17 +97,23 @@ export function Home() {
     }
   }, [isUrl, syncIframePreferences])
 
-  if (!isLoaded) {
-    return (
-      <PublicLayout showMainContainer={false}>
-        <main className='flex min-h-screen items-center justify-center'>
-          <div className='text-muted-foreground'>{t('Loading...')}</div>
-        </main>
-      </PublicLayout>
-    )
-  }
+  useLayoutEffect(() => {
+    if (openingPhase === 'ambient') {
+      delete document.documentElement.dataset.zzapiOpening
+      delete document.documentElement.dataset.zzapiOpeningPhase
+      return
+    }
 
-  if (content) {
+    document.documentElement.dataset.zzapiOpening = 'true'
+    document.documentElement.dataset.zzapiOpeningPhase = openingPhase
+
+    return () => {
+      delete document.documentElement.dataset.zzapiOpening
+      delete document.documentElement.dataset.zzapiOpeningPhase
+    }
+  }, [openingPhase])
+
+  if (showCustomContent) {
     if (isUrl) {
       return (
         <PublicLayout showMainContainer={false}>
@@ -80,14 +125,16 @@ export function Home() {
             causing inconsistent behavior. This token only permits user-activated
             top-level navigation and does NOT grant same-origin access.
           */}
-          <iframe
-            ref={iframeRef}
-            src={content}
-            className='h-screen w-full border-none'
-            title={t('Custom Home Page')}
-            sandbox='allow-forms allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation-by-user-activation'
-            onLoad={syncIframePreferences}
-          />
+          <main>
+            <iframe
+              ref={iframeRef}
+              src={content.trim()}
+              className='h-screen w-full border-none'
+              title={t('Custom Home Page')}
+              sandbox='allow-forms allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation-by-user-activation'
+              onLoad={syncIframePreferences}
+            />
+          </main>
         </PublicLayout>
       )
     }
@@ -97,12 +144,14 @@ export function Home() {
     if (contentIsHtml) {
       return (
         <PublicLayout showMainContainer={false}>
-          <RichContent
-            mode='html'
-            htmlVariant='isolated'
-            content={content}
-            className='custom-home-content'
-          />
+          <main>
+            <RichContent
+              mode='html'
+              htmlVariant='isolated'
+              content={content}
+              className='custom-home-content'
+            />
+          </main>
         </PublicLayout>
       )
     }
@@ -121,13 +170,39 @@ export function Home() {
   }
 
   return (
-    <PublicLayout showMainContainer={false}>
-      <Hero isAuthenticated={isAuthenticated} />
-      <Stats />
-      <Features />
-      <HowItWorks />
-      <CTA isAuthenticated={isAuthenticated} />
-      <Footer />
+    <PublicLayout
+      showMainContainer={false}
+      siteName='zzapi'
+      logo={
+        <img
+          src={landingLogo}
+          alt=''
+          className='size-full rounded-lg object-contain'
+        />
+      }
+    >
+      <main>
+        {openingPhase !== 'ambient' && (
+          <LandingEntrance
+            logo={landingLogo}
+            phase={openingPhase}
+            onPhaseChange={setOpeningPhase}
+            onComplete={() => setOpeningPhase('ambient')}
+          />
+        )}
+        <Hero
+          isAuthenticated={isAuthenticated}
+          logo={landingLogo}
+          openingPhase={openingPhase}
+        />
+        <div className='home-below-fold'>
+          <Stats />
+          <Features />
+          <HowItWorks />
+          <CTA isAuthenticated={isAuthenticated} />
+          <Footer />
+        </div>
+      </main>
     </PublicLayout>
   )
 }

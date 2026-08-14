@@ -23,14 +23,21 @@ interface IconCardProps {
   iconName: string
   size?: number
   className?: string
+  ariaHidden?: boolean
 }
 
 /**
  * Reusable icon card component with glass morphism effect
  */
-export function IconCard({ iconName, size = 32, className }: IconCardProps) {
+export function IconCard({
+  iconName,
+  size = 32,
+  className,
+  ariaHidden = false,
+}: IconCardProps) {
   return (
     <div
+      aria-hidden={ariaHidden || undefined}
       className={cn(
         'glass-morphism group/card border-border/50 dark:border-border/20',
         'relative overflow-hidden rounded-2xl border p-5',

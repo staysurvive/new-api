@@ -453,6 +453,1731 @@ For commercial licensing, please contact support@quantumnous.com
     transform: translateY(0);
   }
 }
+
+/* zzapi V4: Z aperture, spatial Core, and precision routing. */
+:where(.home-hero, .zzapi-opening) {
+  --zzapi-canvas: #fcfdfe;
+  --zzapi-text-strong: #111318;
+  --zzapi-text-secondary: #59616b;
+  --zzapi-hairline: #dce3ea;
+  --zzapi-blue-deep: #1549f4;
+  --zzapi-blue: #5c8eff;
+  --zzapi-blue-flow: #7daaff;
+  --zzapi-blue-light: #aed1ff;
+  --zzapi-blue-highlight: #e0f4ff;
+  --zzapi-route-idle: #667385;
+  --zzapi-active-surface: #eef4ff;
+  --zzapi-logo-optical-scale: 1.38;
+  --zzapi-logo-optical-size: 138%;
+  --zzapi-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --zzapi-ease-aperture: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.dark :where(.home-hero, .zzapi-opening) {
+  --zzapi-canvas: #0e1116;
+  --zzapi-text-strong: #f2f5f7;
+  --zzapi-text-secondary: #aab4c0;
+  --zzapi-hairline: #2b333e;
+  --zzapi-blue-deep: #73a2ff;
+  --zzapi-blue: #73a2ff;
+  --zzapi-blue-flow: #9cc2ff;
+  --zzapi-blue-light: #b8d4ff;
+  --zzapi-blue-highlight: #e0efff;
+  --zzapi-route-idle: #8392a5;
+  --zzapi-active-surface: #17233a;
+}
+
+[data-zzapi-opening='true'] header {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+[data-zzapi-opening='true'][data-zzapi-opening-phase='settle'] header {
+  pointer-events: auto;
+  visibility: visible;
+  animation: zzapi-header-reveal 240ms var(--zzapi-ease-out, ease-out) forwards;
+}
+
+.home-below-fold {
+  opacity: 1;
+  transition: opacity 220ms ease-out;
+}
+
+[data-zzapi-opening='true'] .home-below-fold {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.zzapi-gradient-text {
+  color: var(--zzapi-blue-deep);
+  background: linear-gradient(
+    108deg,
+    var(--zzapi-blue-deep),
+    var(--zzapi-blue-flow) 66%,
+    var(--zzapi-blue-deep)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .zzapi-gradient-text {
+  background-image: linear-gradient(
+    108deg,
+    var(--zzapi-blue-light),
+    var(--zzapi-blue-flow) 58%,
+    var(--zzapi-blue-highlight)
+  );
+}
+
+.home-hero {
+  min-height: min(52rem, 100svh);
+  padding: 5.25rem 1.5rem 2.25rem;
+  background: var(--zzapi-canvas);
+}
+
+.home-hero-field {
+  background:
+    radial-gradient(
+      ellipse 24% 38% at 66% 50%,
+      rgb(92 142 255 / 0.09),
+      transparent 70%
+    ),
+    linear-gradient(
+      148deg,
+      transparent 46%,
+      color-mix(in oklch, var(--zzapi-hairline) 32%, transparent) 46.1%,
+      transparent 46.25%
+    );
+}
+
+.home-hero-geometry::before {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+  border: 1px solid color-mix(in oklch, var(--zzapi-hairline) 54%, transparent);
+  border-radius: 999px;
+  transform: rotate(-32deg);
+  opacity: 0.28;
+}
+
+.home-hero-geometry::before {
+  top: 13%;
+  right: 12%;
+  width: 17rem;
+  height: 2.75rem;
+}
+
+.home-hero-stage {
+  height: min(43rem, calc(100svh - 7.5rem));
+  min-height: 34rem;
+}
+
+.home-hero-copy {
+  width: min(36rem, 46%);
+  padding-top: 6.5rem;
+}
+
+.home-hero-title {
+  max-width: 12ch;
+  margin-top: 0;
+  color: var(--zzapi-text-strong);
+  font-size: 4.25rem;
+  line-height: 1.03;
+  font-weight: 630;
+  text-wrap: balance;
+}
+
+.home-hero-title > span {
+  display: block;
+}
+
+.home-hero-description {
+  max-width: 34rem;
+  margin-top: 1.65rem;
+  color: var(--zzapi-text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.zzapi-primary-cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--zzapi-blue-deep);
+  color: white;
+  box-shadow: 0 14px 30px -18px rgb(21 73 244 / 0.75);
+  transition:
+    transform 180ms var(--zzapi-ease-out),
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.zzapi-primary-cta::before {
+  position: absolute;
+  inset: -40% -20%;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    rgb(224 244 255 / 0.34) 50%,
+    transparent 62%
+  );
+  transform: translateX(-75%);
+  opacity: 0;
+  transition:
+    transform 260ms var(--zzapi-ease-out),
+    opacity 100ms ease;
+}
+
+.zzapi-primary-cta:hover {
+  background: color-mix(in oklch, var(--zzapi-blue-deep) 90%, black);
+  box-shadow: 0 16px 34px -18px rgb(21 73 244 / 0.82);
+  transform: translateY(-1px);
+}
+
+.zzapi-primary-cta:hover::before {
+  transform: translateX(75%);
+  opacity: 1;
+}
+
+.zzapi-primary-cta:active {
+  transform: translateY(0);
+}
+
+.zzapi-primary-cta svg,
+.zzapi-secondary-cta svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.zzapi-primary-cta svg {
+  transition: transform 180ms var(--zzapi-ease-out);
+}
+
+.zzapi-primary-cta:hover svg {
+  transform: translateX(2px);
+}
+
+.zzapi-secondary-cta {
+  border-color: color-mix(in oklch, var(--zzapi-hairline) 82%, transparent);
+  color: var(--zzapi-text-strong);
+  background: color-mix(in oklch, var(--zzapi-canvas) 90%, transparent);
+}
+
+.home-hero-map {
+  inset: 0;
+}
+
+.home-infrastructure {
+  --zzapi-core-x: 66%;
+  --zzapi-core-y: 50%;
+}
+
+.home-infrastructure-depth {
+  background: radial-gradient(
+    circle at var(--zzapi-core-x) var(--zzapi-core-y),
+    rgb(92 142 255 / 0.09),
+    transparent 24%
+  );
+}
+
+.zzapi-network-meta {
+  top: 1rem;
+  right: 0;
+  color: var(--zzapi-text-secondary);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+}
+
+.zzapi-network-kicker {
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.zzapi-network-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.zzapi-status-dot,
+.zzapi-node-dot {
+  display: block;
+  width: 0.375rem;
+  height: 0.375rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--zzapi-blue);
+}
+
+.zzapi-status-dot {
+  box-shadow: 0 0 0 3px rgb(92 142 255 / 0.11);
+}
+
+.zzapi-route-field {
+  overflow: visible;
+}
+
+.zzapi-route-field path,
+.zzapi-route-field line,
+.zzapi-route-field circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.zzapi-route-axis,
+.zzapi-route-input,
+.zzapi-route-pulse,
+.zzapi-model-route {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.zzapi-route-axis {
+  stroke: var(--zzapi-route-idle);
+  stroke-width: 1;
+  stroke-dasharray: 0.015 0.02;
+  opacity: 0.17;
+}
+
+.zzapi-route-input {
+  stroke: url('#zzapi-route-in-gradient');
+  stroke-width: 1.85;
+  opacity: 0.9;
+}
+
+.zzapi-route-input-mobile {
+  stroke: var(--zzapi-blue-deep);
+  opacity: 0.78;
+}
+
+.zzapi-route-pulse {
+  stroke: var(--zzapi-blue-flow);
+  stroke-width: 2;
+  stroke-dasharray: 0.018 0.982;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.home-infrastructure[data-opening-phase='ambient'] .zzapi-route-pulse {
+  animation: zzapi-route-pulse 7.2s linear 1.2s infinite;
+}
+
+.zzapi-model-route {
+  stroke: url('#zzapi-route-out-gradient');
+  stroke-width: 1.6;
+  opacity: 0.86;
+  transition:
+    opacity 180ms ease,
+    stroke-width 180ms ease;
+}
+
+.zzapi-route-calibration {
+  fill: none;
+  stroke: var(--zzapi-route-idle);
+  stroke-width: 1;
+  opacity: 0.28;
+}
+
+.zzapi-route-contact {
+  fill: var(--zzapi-canvas);
+  stroke: var(--zzapi-route-idle);
+  stroke-width: 1.5;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease,
+    r 180ms ease;
+}
+
+.zzapi-route-topology-mobile {
+  display: none;
+}
+
+.zzapi-model-aggregate {
+  display: none;
+  color: var(--zzapi-text-secondary);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+}
+
+.zzapi-client-origin {
+  bottom: 10%;
+  left: 5.5%;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--zzapi-text-strong);
+}
+
+.zzapi-client-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--zzapi-hairline);
+  border-radius: 8px;
+  background: var(--zzapi-canvas);
+  box-shadow: 0 8px 24px -18px rgb(15 23 42 / 0.55);
+}
+
+.zzapi-client-icon svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--zzapi-blue-deep);
+}
+
+.zzapi-client-origin strong,
+.zzapi-client-origin small {
+  display: flex;
+  align-items: center;
+}
+
+.zzapi-client-origin strong {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 650;
+}
+
+.zzapi-client-origin small {
+  gap: 0.25rem;
+  margin-top: 0.125rem;
+  color: var(--zzapi-text-secondary);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+}
+
+.zzapi-client-origin small svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.zzapi-model-node {
+  display: flex;
+  min-width: 6.25rem;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.25rem;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  color: var(--zzapi-text-secondary);
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  font-weight: 600;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.zzapi-model-node:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid var(--zzapi-blue-deep);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.zzapi-node-openai {
+  top: 12%;
+  right: 4.5%;
+}
+
+.zzapi-node-claude {
+  top: 31%;
+  right: 3.5%;
+}
+
+.zzapi-node-gemini {
+  top: 58%;
+  right: 4.5%;
+}
+
+.zzapi-node-qwen {
+  right: 10.5%;
+  bottom: 14%;
+}
+
+.zzapi-gateway-core {
+  top: var(--zzapi-core-y);
+  left: var(--zzapi-core-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+}
+
+.zzapi-core-mark {
+  width: 9.25rem;
+  height: 9.25rem;
+  filter: drop-shadow(0 26px 28px rgb(21 73 244 / 0.14));
+}
+
+.zzapi-core-mark > img {
+  transform: scale(var(--zzapi-logo-optical-scale));
+  transform-origin: center;
+}
+
+.zzapi-core-energy {
+  position: absolute;
+  inset: -2.25rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(92 142 255 / 0.13), transparent 68%);
+}
+
+.zzapi-core-orbit {
+  position: absolute;
+  top: 4.65rem;
+  left: 50%;
+  border: 1px solid color-mix(in oklch, var(--zzapi-hairline) 74%, transparent);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) rotate(-32deg);
+  pointer-events: none;
+}
+
+.zzapi-core-orbit-one {
+  width: 13.25rem;
+  height: 3.5rem;
+}
+
+.zzapi-core-orbit-two {
+  width: 11rem;
+  height: 2.35rem;
+  border-color: rgb(92 142 255 / 0.18);
+}
+
+.zzapi-core-sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mask: var(--zzapi-core-mask) center / var(--zzapi-logo-optical-size)
+    var(--zzapi-logo-optical-size) no-repeat;
+  -webkit-mask: var(--zzapi-core-mask) center / var(--zzapi-logo-optical-size)
+    var(--zzapi-logo-optical-size) no-repeat;
+}
+
+.zzapi-core-sheen::before {
+  position: absolute;
+  inset: -35%;
+  content: '';
+  background: linear-gradient(
+    110deg,
+    transparent 38%,
+    rgb(224 244 255 / 0.8) 49%,
+    transparent 60%
+  );
+  transform: translateX(-90%) rotate(-12deg);
+  opacity: 0;
+}
+
+.zzapi-core-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.zzapi-core-lockup strong {
+  color: var(--zzapi-text-strong);
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 720;
+}
+
+.zzapi-core-lockup > span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--zzapi-text-secondary);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.zzapi-core-lockup svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--zzapi-blue-deep);
+}
+
+.home-infrastructure[data-active-model] .zzapi-model-node {
+  opacity: 0.38;
+}
+
+.home-infrastructure[data-active-model] .zzapi-model-route,
+.home-infrastructure[data-active-model] .zzapi-route-contact {
+  opacity: 0.12;
+}
+
+.home-infrastructure[data-active-model='openai'] .zzapi-node-openai,
+.home-infrastructure[data-active-model='claude'] .zzapi-node-claude,
+.home-infrastructure[data-active-model='gemini'] .zzapi-node-gemini,
+.home-infrastructure[data-active-model='qwen'] .zzapi-node-qwen {
+  color: var(--zzapi-text-strong);
+  opacity: 1;
+}
+
+.home-infrastructure[data-active-model='openai'] .zzapi-route-openai,
+.home-infrastructure[data-active-model='claude'] .zzapi-route-claude,
+.home-infrastructure[data-active-model='gemini'] .zzapi-route-gemini,
+.home-infrastructure[data-active-model='qwen'] .zzapi-route-qwen {
+  stroke-width: 2.25;
+  opacity: 1;
+}
+
+.home-infrastructure[data-active-model='openai'] .zzapi-contact-openai,
+.home-infrastructure[data-active-model='claude'] .zzapi-contact-claude,
+.home-infrastructure[data-active-model='gemini'] .zzapi-contact-gemini,
+.home-infrastructure[data-active-model='qwen'] .zzapi-contact-qwen {
+  fill: var(--zzapi-blue);
+  stroke: var(--zzapi-blue-deep);
+  opacity: 1;
+}
+
+.home-infrastructure[data-active-model] .zzapi-core-sheen::before {
+  animation: zzapi-core-response 420ms var(--zzapi-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .zzapi-model-node:hover {
+    transform: translateY(-2px);
+  }
+
+  .zzapi-primary-cta:hover svg {
+    transform: translateX(2px);
+  }
+
+  .zzapi-primary-cta svg {
+    transition: transform 180ms var(--zzapi-ease-out);
+  }
+}
+
+@keyframes zzapi-core-response {
+  20% {
+    opacity: 0.78;
+  }
+  100% {
+    transform: translateX(90%) rotate(-12deg);
+    opacity: 0;
+  }
+}
+
+.home-cta-field {
+  background: radial-gradient(
+    ellipse 42% 80% at 50% 50%,
+    color-mix(in oklch, var(--primary) 9%, transparent),
+    transparent 76%
+  );
+}
+
+@keyframes zzapi-header-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* V4 opening sequence. */
+.zzapi-opening {
+  --zzapi-mark-size: 9rem;
+  color: var(--zzapi-text-strong);
+  background: transparent;
+  opacity: 1;
+  perspective: 900px;
+  transition: opacity 140ms ease-out;
+  cursor: default;
+}
+
+.zzapi-opening--exiting {
+  opacity: 0;
+}
+
+.zzapi-opening-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 190vmax;
+  height: 112vmax;
+  background: var(--zzapi-canvas);
+  backface-visibility: hidden;
+  transition: transform 420ms var(--zzapi-ease-aperture);
+}
+
+.zzapi-opening-plane-a {
+  transform: translate(-50%, -100%) rotate(-32deg) translateY(1px);
+  transform-origin: center bottom;
+}
+
+.zzapi-opening-plane-b {
+  transform: translate(-50%, 0) rotate(-32deg) translateY(-1px);
+  transform-origin: center top;
+}
+
+.zzapi-opening--expanded .zzapi-opening-plane-a,
+.zzapi-opening--handoff .zzapi-opening-plane-a {
+  transform: translate(-50%, -100%) rotate(-32deg) translateY(-28vmax);
+}
+
+.zzapi-opening--expanded .zzapi-opening-plane-b,
+.zzapi-opening--handoff .zzapi-opening-plane-b {
+  transform: translate(-50%, 0) rotate(-32deg) translateY(28vmax);
+}
+
+.zzapi-opening[data-opening-phase='settle'] .zzapi-opening-plane {
+  visibility: hidden;
+}
+
+.zzapi-opening-light-field {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(42vmin, 23rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(174 209 255 / 0.22), transparent 24%),
+    radial-gradient(circle, rgb(92 142 255 / 0.12), transparent 68%);
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  transition:
+    opacity 240ms ease,
+    transform 420ms var(--zzapi-ease-out);
+}
+
+.zzapi-opening--focused .zzapi-opening-light-field {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.zzapi-opening--ignited .zzapi-opening-light-field {
+  transform: translate(-50%, -50%) scale(1.08);
+  opacity: 0.8;
+}
+
+.zzapi-opening--expanded .zzapi-opening-light-field {
+  transform: translate(-50%, -50%) scale(1.4);
+  opacity: 0;
+}
+
+.zzapi-opening-glint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 8;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--zzapi-blue-highlight);
+  box-shadow:
+    0 0 0 1px rgb(92 142 255 / 0.35),
+    0 0 16px rgb(92 142 255 / 0.42);
+  transform: translate(-50%, -50%);
+  animation: zzapi-glint-arrive 160ms ease-out forwards;
+}
+
+.zzapi-opening--assembled .zzapi-opening-glint {
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.zzapi-opening-axis {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 7;
+  width: min(68vmin, 35rem);
+  height: 1px;
+  transform: translate(-50%, -50%) rotate(-32deg) scaleX(0);
+  opacity: 0;
+  transform-origin: center;
+  transition:
+    transform 210ms var(--zzapi-ease-out),
+    opacity 160ms ease;
+}
+
+.zzapi-opening-axis-primary {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--zzapi-blue-flow) 42%,
+    var(--zzapi-blue-highlight) 50%,
+    var(--zzapi-blue-flow) 58%,
+    transparent
+  );
+}
+
+.zzapi-opening-axis-secondary {
+  width: min(48vmin, 25rem);
+  transform: translate(-50%, calc(-50% + 18px)) rotate(-32deg) scaleX(0);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--zzapi-route-idle),
+    transparent
+  );
+  transition-delay: 45ms;
+}
+
+.zzapi-opening[data-opening-phase='signal'] .zzapi-opening-axis {
+  transform: translate(-50%, -50%) rotate(-32deg) scaleX(1);
+  opacity: 0.72;
+}
+
+.zzapi-opening[data-opening-phase='signal'] .zzapi-opening-axis-secondary {
+  transform: translate(-50%, calc(-50% + 18px)) rotate(-32deg) scaleX(1);
+  opacity: 0.28;
+}
+
+.zzapi-opening--assembled .zzapi-opening-axis {
+  width: calc(var(--zzapi-mark-size) * 1.45);
+  opacity: 0.28;
+}
+
+.zzapi-opening-focus-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  width: calc(var(--zzapi-mark-size) * 1.55);
+  height: calc(var(--zzapi-mark-size) * 0.46);
+  border: 1px solid rgb(92 142 255 / 0.24);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) rotate(-32deg) scale(0.75);
+  opacity: 0;
+  transition:
+    transform 190ms var(--zzapi-ease-out),
+    opacity 150ms ease;
+}
+
+.zzapi-opening--focused .zzapi-opening-focus-ring {
+  transform: translate(-50%, -50%) rotate(-32deg) scale(1);
+  opacity: 0.65;
+}
+
+.zzapi-opening--ignited .zzapi-opening-focus-ring {
+  transform: translate(-50%, -50%) rotate(-32deg) scale(1.12);
+  opacity: 0;
+}
+
+.zzapi-opening-aperture-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 9;
+  width: 82vmax;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 27%,
+    var(--zzapi-blue-deep) 44%,
+    var(--zzapi-blue-highlight) 50%,
+    var(--zzapi-blue-flow) 56%,
+    transparent 73%
+  );
+  transform: translate(-50%, -50%) rotate(-32deg) scaleX(0.08);
+  opacity: 0;
+  transform-origin: center;
+}
+
+.zzapi-opening--ignited .zzapi-opening-aperture-light {
+  animation: zzapi-aperture-ignite 250ms var(--zzapi-ease-out) forwards;
+}
+
+.zzapi-opening--expanded .zzapi-opening-aperture-light,
+.zzapi-opening--handoff .zzapi-opening-aperture-light {
+  animation: none;
+  height: 7vmax;
+  opacity: 0;
+  filter: blur(12px);
+  transition:
+    height 380ms var(--zzapi-ease-aperture),
+    opacity 340ms ease,
+    filter 380ms ease;
+}
+
+.zzapi-opening-mark-proxy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 12;
+  width: var(--zzapi-mark-size);
+  height: var(--zzapi-mark-size);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  transition: transform 150ms var(--zzapi-ease-out);
+}
+
+.zzapi-opening-slice,
+.zzapi-opening-logo,
+.zzapi-opening-sheen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zzapi-opening-slice,
+.zzapi-opening-logo {
+  transform-origin: center;
+}
+
+.zzapi-opening-slice {
+  object-fit: contain;
+  opacity: 0;
+  transition:
+    transform 260ms var(--zzapi-ease-out),
+    opacity 130ms ease;
+}
+
+.zzapi-opening-slice-top {
+  clip-path: inset(0 0 65% 0);
+  transform: translate(26px, -22px) scale(var(--zzapi-logo-optical-scale));
+}
+
+.zzapi-opening-slice-middle {
+  clip-path: polygon(0 24%, 100% 24%, 100% 77%, 0 77%);
+  transform: translate(-30px, 25px) scale(var(--zzapi-logo-optical-scale));
+  transition-delay: 40ms;
+}
+
+.zzapi-opening-slice-bottom {
+  clip-path: inset(65% 0 0 0);
+  transform: translate(-24px, 24px) scale(var(--zzapi-logo-optical-scale));
+  transition-delay: 80ms;
+}
+
+.zzapi-opening--assembled .zzapi-opening-slice {
+  transform: translate(0, 0) scale(var(--zzapi-logo-optical-scale));
+  opacity: 1;
+}
+
+.zzapi-opening-logo {
+  object-fit: contain;
+  transform: scale(var(--zzapi-logo-optical-scale));
+  opacity: 0;
+  transition: opacity 80ms ease;
+}
+
+.zzapi-opening--focused .zzapi-opening-logo {
+  opacity: 1;
+}
+
+.zzapi-opening--focused:not(.zzapi-opening--ignited) .zzapi-opening-mark-proxy {
+  transform: translate(-50%, -50%) scale(0.985);
+}
+
+.zzapi-opening--focused .zzapi-opening-slice {
+  opacity: 0;
+}
+
+.zzapi-opening-sheen {
+  overflow: hidden;
+  background: linear-gradient(
+    108deg,
+    transparent 32%,
+    var(--zzapi-blue-highlight) 48%,
+    transparent 64%
+  );
+  mask: var(--zzapi-opening-mask) center / var(--zzapi-logo-optical-size)
+    var(--zzapi-logo-optical-size) no-repeat;
+  -webkit-mask: var(--zzapi-opening-mask) center /
+    var(--zzapi-logo-optical-size) var(--zzapi-logo-optical-size) no-repeat;
+  transform: translateX(-82%);
+  opacity: 0;
+}
+
+.zzapi-opening--ignited .zzapi-opening-sheen {
+  animation: zzapi-logo-ignite 190ms ease-out forwards;
+}
+
+.zzapi-opening-wordmark-proxy {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + var(--zzapi-mark-size) * 0.78);
+  z-index: 12;
+  color: var(--zzapi-text-strong);
+  font-size: 2.45rem;
+  line-height: 1;
+  font-weight: 720;
+  clip-path: inset(0 100% 0 0);
+  transform: translate(-50%, -50%) translateX(-0.5rem);
+  opacity: 0;
+  transform-origin: center;
+  transition:
+    clip-path 260ms var(--zzapi-ease-out),
+    transform 260ms var(--zzapi-ease-out),
+    opacity 120ms ease;
+}
+
+.zzapi-opening--locked .zzapi-opening-wordmark-proxy {
+  clip-path: inset(0 0 0 0);
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.zzapi-opening--handoff .zzapi-opening-mark-proxy {
+  will-change: transform;
+  animation: zzapi-mark-handoff 320ms var(--zzapi-ease-out) forwards;
+}
+
+.zzapi-opening--handoff .zzapi-opening-wordmark-proxy {
+  will-change: transform;
+  animation: zzapi-wordmark-handoff 360ms var(--zzapi-ease-out) forwards;
+}
+
+.zzapi-opening--skipping {
+  pointer-events: none;
+}
+
+.zzapi-opening--skipping .zzapi-opening-plane {
+  transition-duration: 100ms;
+}
+
+@keyframes zzapi-glint-arrive {
+  from {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zzapi-aperture-ignite {
+  0% {
+    transform: translate(-50%, -50%) rotate(-32deg) scaleX(0.08);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-32deg) scaleX(1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes zzapi-logo-ignite {
+  18% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(82%);
+    opacity: 0;
+  }
+}
+
+@keyframes zzapi-mark-handoff {
+  from {
+    transform: translate(-50%, -50%);
+  }
+  to {
+    transform: translate(
+        calc(-50% + var(--zzapi-transfer-x)),
+        calc(-50% + var(--zzapi-transfer-y))
+      )
+      scale(var(--zzapi-transfer-scale));
+  }
+}
+
+@keyframes zzapi-wordmark-handoff {
+  from {
+    transform: translate(-50%, -50%);
+  }
+  45% {
+    transform: translate(
+        calc(-50% + var(--zzapi-wordmark-mid-x)),
+        calc(-50% + var(--zzapi-wordmark-mid-y))
+      )
+      scale(0.82);
+  }
+  to {
+    transform: translate(
+        calc(-50% + var(--zzapi-transfer-x)),
+        calc(-50% + var(--zzapi-transfer-y))
+      )
+      scale(var(--zzapi-transfer-scale));
+  }
+}
+
+/* Shared phase: real route geometry appears behind the aperture. */
+.home-hero[data-opening-phase='signal'] .home-hero-copy,
+.home-hero[data-opening-phase='assemble'] .home-hero-copy,
+.home-hero[data-opening-phase='focus'] .home-hero-copy,
+.home-hero[data-opening-phase='ignite'] .home-hero-copy,
+.home-hero[data-opening-phase='expand'] .home-hero-copy,
+.home-hero[data-opening-phase='lockup'] .home-hero-copy,
+.home-hero[data-opening-phase='handoff'] .home-hero-copy {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.home-hero-copy {
+  opacity: 1;
+  transition:
+    opacity 280ms var(--zzapi-ease-out),
+    transform 320ms var(--zzapi-ease-out);
+}
+
+.home-hero[data-opening-phase='settle'] .home-hero-copy {
+  animation: zzapi-copy-settle 320ms var(--zzapi-ease-out) forwards;
+}
+
+.home-infrastructure .zzapi-route-input,
+.home-infrastructure .zzapi-model-route,
+.home-infrastructure .zzapi-route-axis,
+.home-infrastructure .zzapi-route-calibration,
+.home-infrastructure .zzapi-route-contact,
+.home-infrastructure .zzapi-network-meta,
+.home-infrastructure .zzapi-client-origin,
+.home-infrastructure .zzapi-model-node,
+.home-infrastructure .zzapi-model-aggregate,
+.home-infrastructure .zzapi-core-lockup {
+  transition:
+    opacity 260ms var(--zzapi-ease-out),
+    transform 280ms var(--zzapi-ease-out);
+}
+
+.home-infrastructure[data-opening-phase='signal']
+  :is(
+    .zzapi-route-input,
+    .zzapi-model-route,
+    .zzapi-route-axis,
+    .zzapi-route-calibration,
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ),
+.home-infrastructure[data-opening-phase='assemble']
+  :is(
+    .zzapi-route-input,
+    .zzapi-model-route,
+    .zzapi-route-axis,
+    .zzapi-route-calibration,
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ),
+.home-infrastructure[data-opening-phase='focus']
+  :is(
+    .zzapi-route-input,
+    .zzapi-model-route,
+    .zzapi-route-axis,
+    .zzapi-route-calibration,
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ),
+.home-infrastructure[data-opening-phase='ignite']
+  :is(
+    .zzapi-route-input,
+    .zzapi-model-route,
+    .zzapi-route-axis,
+    .zzapi-route-calibration,
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ) {
+  opacity: 0;
+}
+
+.home-infrastructure[data-opening-phase='expand'] .zzapi-route-input,
+.home-infrastructure[data-opening-phase='expand'] .zzapi-model-route,
+.home-infrastructure[data-opening-phase='expand'] .zzapi-route-axis,
+.home-infrastructure[data-opening-phase='lockup'] .zzapi-route-input,
+.home-infrastructure[data-opening-phase='lockup'] .zzapi-model-route,
+.home-infrastructure[data-opening-phase='lockup'] .zzapi-route-axis,
+.home-infrastructure[data-opening-phase='handoff'] .zzapi-route-input,
+.home-infrastructure[data-opening-phase='handoff'] .zzapi-model-route,
+.home-infrastructure[data-opening-phase='handoff'] .zzapi-route-axis {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: zzapi-route-draw 360ms var(--zzapi-ease-out) forwards;
+}
+
+.home-infrastructure[data-opening-phase='expand'] .zzapi-route-calibration,
+.home-infrastructure[data-opening-phase='lockup'] .zzapi-route-calibration,
+.home-infrastructure[data-opening-phase='handoff'] .zzapi-route-calibration {
+  opacity: 0.28;
+}
+
+.home-infrastructure[data-opening-phase='expand']
+  :is(
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ),
+.home-infrastructure[data-opening-phase='lockup']
+  :is(
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ),
+.home-infrastructure[data-opening-phase='handoff']
+  :is(
+    .zzapi-route-contact,
+    .zzapi-network-meta,
+    .zzapi-client-origin,
+    .zzapi-model-node,
+    .zzapi-model-aggregate,
+    .zzapi-core-lockup
+  ) {
+  opacity: 0;
+}
+
+[data-zzapi-opening='true'] .zzapi-core-mark {
+  visibility: hidden;
+  opacity: 0;
+}
+
+[data-zzapi-opening='true'][data-zzapi-opening-phase='settle']
+  .zzapi-core-mark {
+  visibility: visible;
+  opacity: 1;
+}
+
+.home-hero[data-opening-phase='settle'] .zzapi-model-node,
+.home-hero[data-opening-phase='settle'] .zzapi-model-aggregate,
+.home-hero[data-opening-phase='settle'] .zzapi-client-origin,
+.home-hero[data-opening-phase='settle'] .zzapi-network-meta,
+.home-hero[data-opening-phase='settle'] .zzapi-core-lockup {
+  animation: zzapi-node-settle 300ms var(--zzapi-ease-out) backwards;
+}
+
+.home-hero[data-opening-phase='settle'] .zzapi-core-mark {
+  visibility: visible;
+  opacity: 1;
+}
+
+.home-hero[data-opening-phase='settle'] .zzapi-node-claude {
+  animation-delay: 40ms;
+}
+
+.home-hero[data-opening-phase='settle'] .zzapi-node-gemini {
+  animation-delay: 80ms;
+}
+
+.home-hero[data-opening-phase='settle'] .zzapi-node-qwen {
+  animation-delay: 120ms;
+}
+
+@keyframes zzapi-route-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes zzapi-route-pulse {
+  0%,
+  10% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  16%,
+  56% {
+    opacity: 0.72;
+  }
+  66%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes zzapi-copy-settle {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes zzapi-node-settle {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1279px) {
+  .home-hero-stage {
+    height: min(40rem, calc(100svh - 7rem));
+    min-height: 33rem;
+  }
+
+  .home-hero-copy {
+    width: 49%;
+    padding-top: 5rem;
+  }
+
+  .home-hero-title {
+    font-size: 3.5rem;
+  }
+
+  .home-hero-map {
+    inset: 0;
+  }
+
+  .home-infrastructure {
+    --zzapi-core-x: 68%;
+  }
+
+  .zzapi-core-mark {
+    width: 8.25rem;
+    height: 8.25rem;
+  }
+
+  .zzapi-core-orbit {
+    top: 4.15rem;
+  }
+
+  .zzapi-core-orbit-one {
+    width: 11.5rem;
+  }
+
+  .zzapi-core-orbit-two {
+    width: 9.5rem;
+  }
+
+  .zzapi-node-openai,
+  .zzapi-node-claude,
+  .zzapi-node-gemini {
+    right: 2%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .home-hero {
+    min-height: min(48rem, 100svh);
+    padding-inline: 1.25rem;
+  }
+
+  .home-hero-stage {
+    height: min(39rem, calc(100svh - 6.75rem));
+    min-height: 35rem;
+  }
+
+  .home-hero-copy {
+    width: 54%;
+    padding-top: 4.5rem;
+  }
+
+  .home-hero-title {
+    max-width: 11ch;
+    margin-top: 2.2rem;
+    font-size: 3.25rem;
+  }
+
+  .home-hero-description {
+    max-width: 29rem;
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+
+  .home-hero-map {
+    position: absolute;
+    inset: 0;
+    margin-top: 0;
+  }
+
+  .home-hero-map .home-infrastructure {
+    min-height: 0;
+  }
+
+  .home-infrastructure {
+    --zzapi-core-x: 70%;
+    --zzapi-core-y: 53%;
+  }
+
+  .zzapi-network-meta {
+    right: 0;
+  }
+
+  .zzapi-model-node {
+    min-width: 5.5rem;
+  }
+
+  .zzapi-client-origin {
+    bottom: 10%;
+    left: 12%;
+  }
+
+  .zzapi-node-openai {
+    top: 13%;
+  }
+
+  .zzapi-node-claude {
+    top: 32%;
+  }
+
+  .zzapi-node-gemini {
+    top: 65%;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero {
+    height: 88svh;
+    min-height: 0;
+    padding: 4.75rem 1rem 1rem;
+  }
+
+  .home-hero-stage {
+    height: calc(88svh - 5.75rem);
+    min-height: 0;
+  }
+
+  .home-hero-copy {
+    width: 100%;
+    padding-top: 1.1rem;
+  }
+
+  .home-hero-title,
+  .home-hero h1 {
+    max-width: 12ch;
+    margin-top: 0;
+    font-size: 2.625rem;
+    line-height: 1.04;
+  }
+
+  .home-hero-description {
+    max-width: 29rem;
+    margin-top: 0.7rem;
+    font-size: 0.9375rem;
+    line-height: 1.45rem;
+  }
+
+  .home-hero-actions {
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+  }
+
+  .home-hero-actions > * {
+    height: 2.75rem;
+  }
+
+  .home-hero-map {
+    inset: 14rem -0.75rem 0;
+    width: auto;
+  }
+
+  .home-infrastructure {
+    --zzapi-core-x: 50%;
+    --zzapi-core-y: 40%;
+    min-height: 0;
+  }
+
+  .home-infrastructure-depth {
+    background: radial-gradient(
+      circle at var(--zzapi-core-x) var(--zzapi-core-y),
+      rgb(92 142 255 / 0.1),
+      transparent 28%
+    );
+  }
+
+  .zzapi-route-topology-desktop {
+    display: none;
+  }
+
+  .zzapi-route-topology-mobile {
+    display: block;
+  }
+
+  .zzapi-network-meta {
+    display: none;
+  }
+
+  .zzapi-core-mark {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .zzapi-core-orbit {
+    top: 3.5rem;
+  }
+
+  .zzapi-core-orbit-one {
+    width: 10.75rem;
+    height: 3rem;
+  }
+
+  .zzapi-core-orbit-two {
+    width: 8.8rem;
+    height: 2rem;
+  }
+
+  .zzapi-client-origin {
+    top: 7%;
+    bottom: auto;
+    left: 50%;
+    width: max-content;
+    translate: -50% 0;
+  }
+
+  .zzapi-model-node {
+    min-width: 5.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .zzapi-node-openai {
+    top: 72%;
+    right: auto;
+    left: 29%;
+    translate: -50% 0;
+  }
+
+  .zzapi-node-claude {
+    top: 72%;
+    right: auto;
+    left: 71%;
+    translate: -50% 0;
+  }
+
+  .zzapi-node-gemini,
+  .zzapi-node-qwen {
+    display: none;
+  }
+
+  .zzapi-gateway-core {
+    top: var(--zzapi-core-y);
+    left: var(--zzapi-core-x);
+  }
+
+  .zzapi-model-aggregate {
+    top: 89%;
+    left: 50%;
+    display: block;
+    width: max-content;
+    translate: -50% 0;
+  }
+
+  .zzapi-core-lockup strong {
+    font-size: 1.25rem;
+  }
+
+  .zzapi-opening {
+    --zzapi-mark-size: 7rem;
+  }
+
+  .zzapi-opening-wordmark-proxy {
+    left: calc(50% + var(--zzapi-mark-size) * 0.76);
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 429px) {
+  .home-hero-title,
+  .home-hero h1 {
+    font-size: 2.25rem;
+    line-height: 1.08;
+  }
+
+  .home-hero-description {
+    max-width: 24rem;
+    font-size: 0.875rem;
+    line-height: 1.35rem;
+  }
+
+  .home-hero-map {
+    top: 14.25rem;
+    bottom: 0;
+  }
+
+  .zzapi-network-meta {
+    gap: 0.75rem;
+  }
+
+  .zzapi-network-kicker {
+    display: none;
+  }
+
+  .zzapi-model-node {
+    min-width: 5.25rem;
+    padding-inline: 0.2rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .home-hero {
+    height: auto;
+    min-height: 49rem;
+  }
+
+  .home-hero-stage {
+    height: 43rem;
+    min-height: 43rem;
+  }
+
+  .home-hero-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .home-hero-actions > * {
+    width: 100%;
+  }
+
+  .home-hero-map {
+    top: 16.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zzapi-opening-axis,
+  .zzapi-opening-glint,
+  .zzapi-opening-focus-ring,
+  .zzapi-opening-aperture-light,
+  .zzapi-opening-light-field,
+  .zzapi-opening-sheen,
+  .zzapi-opening-wordmark-proxy {
+    clip-path: inset(0 0 0 0);
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .zzapi-opening-plane {
+    transition: none;
+  }
+
+  .zzapi-opening-logo {
+    transform: scale(var(--zzapi-logo-optical-scale));
+    opacity: 1;
+  }
+
+  .zzapi-opening-slice {
+    opacity: 0;
+    transition: none;
+  }
+
+  .zzapi-opening-mark-proxy {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .zzapi-opening--exiting {
+    opacity: 0;
+    transition-duration: 150ms;
+  }
+
+  .home-hero-copy,
+  .home-infrastructure
+    :is(
+      .zzapi-route-input,
+      .zzapi-model-route,
+      .zzapi-route-axis,
+      .zzapi-route-calibration,
+      .zzapi-route-contact,
+      .zzapi-network-meta,
+      .zzapi-client-origin,
+      .zzapi-model-node,
+      .zzapi-model-aggregate,
+      .zzapi-core-lockup
+    ) {
+    animation: none !important;
+    transition: none;
+  }
+
+  .home-infrastructure[data-active-model] .zzapi-core-sheen::before {
+    animation: none;
+  }
+
+  .zzapi-route-pulse {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .zzapi-primary-cta,
+  .zzapi-primary-cta::before,
+  .zzapi-primary-cta svg {
+    transition: none;
+  }
+
+  .zzapi-primary-cta:hover,
+  .zzapi-primary-cta:hover svg {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .zzapi-gradient-text {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
+
+  .zzapi-model-node:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+    box-shadow: none;
+  }
+
+  .zzapi-route-axis,
+  .zzapi-route-input,
+  .zzapi-model-route,
+  .zzapi-route-contact {
+    stroke: CanvasText;
+  }
+
+  .zzapi-status-dot,
+  .zzapi-node-dot {
+    background: Highlight;
+  }
+
+  .zzapi-model-node[aria-pressed='true'] {
+    border-color: Highlight;
+    color: HighlightText;
+    background: Highlight;
+  }
+}
 @keyframes landing-fade-in {
   from {
     opacity: 0;

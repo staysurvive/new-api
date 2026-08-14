@@ -37,3 +37,32 @@ export interface HomePageContentResult {
   isLoaded: boolean
   isUrl: boolean
 }
+
+export const OPENING_PHASES = [
+  'signal',
+  'assemble',
+  'focus',
+  'ignite',
+  'expand',
+  'lockup',
+  'handoff',
+  'settle',
+  'ambient',
+] as const
+
+export type OpeningPhase = (typeof OPENING_PHASES)[number]
+
+export function openingPhaseReached(
+  current: OpeningPhase,
+  target: OpeningPhase
+) {
+  return OPENING_PHASES.indexOf(current) >= OPENING_PHASES.indexOf(target)
+}
+
+export function shouldRenderCustomHome(
+  content: string,
+  hadInitialContent: boolean,
+  openingPhase: OpeningPhase
+) {
+  return Boolean(content) && (hadInitialContent || openingPhase === 'ambient')
+}

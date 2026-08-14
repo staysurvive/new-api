@@ -25,6 +25,25 @@ export function isHttpUrl(value: string): boolean {
   }
 }
 
+export function isSafeInternalUrl(value: string): boolean {
+  const hasUnsafeCharacter = [...value].some((character) => {
+    const code = character.charCodeAt(0)
+    return character === '\\' || code < 0x20 || code === 0x7f
+  })
+
+  if (!value.startsWith('/') || value.startsWith('//') || hasUnsafeCharacter) {
+    return false
+  }
+
+  try {
+    return (
+      new URL(value, 'https://zzapi.invalid').origin === 'https://zzapi.invalid'
+    )
+  } catch {
+    return false
+  }
+}
+
 export function isLikelyHtml(value: string): boolean {
   return /<!doctype html|<html[\s>]|<head[\s>]|<body[\s>]|<style[\s>]|<script[\s>]|<\/?[a-z][\s\S]*>/i.test(
     value

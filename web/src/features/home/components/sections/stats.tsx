@@ -31,6 +31,7 @@ function Counter(props: CounterProps) {
   const { end, suffix = '', prefix = '', duration = 1600, decimals = 0 } = props
   const ref = useRef<HTMLSpanElement>(null)
   const startedRef = useRef(false)
+  const animationFrameRef = useRef<number | null>(null)
 
   const formatValue = useCallback(
     (v: number) =>
@@ -46,9 +47,13 @@ function Counter(props: CounterProps) {
       const progress = Math.min((now - start) / duration, 1)
       const eased = 1 - Math.pow(1 - progress, 3)
       el.textContent = `${prefix}${formatValue(eased * end)}${suffix}`
-      if (progress < 1) requestAnimationFrame(step)
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(step)
+      } else {
+        animationFrameRef.current = null
+      }
     }
-    requestAnimationFrame(step)
+    animationFrameRef.current = requestAnimationFrame(step)
   }, [end, duration, prefix, suffix, formatValue])
 
   useEffect(() => {
@@ -73,7 +78,13 @@ function Counter(props: CounterProps) {
     )
 
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+    }
   }, [animate, end, prefix, suffix, formatValue])
 
   return (
