@@ -136,6 +136,8 @@ docker compose -f docker-compose.yml -f docker-compose.current.yml up -d --build
 
 生产环境的 `Dockerfile` 会将前端构建结果嵌入后端镜像。`docker-compose.dev.yml` 仅用于开发：它只构建后端，前端需要另外启动 Rsbuild 开发服务器。
 
+当前源码覆盖文件会直接复用开发环境的 PostgreSQL 数据目录 `./data/dev/postgres`，因此已有的本地账号和设置可以继续使用。Redis、应用数据和日志持久化到 `./data/current/`。例如仓库位于 `D:\new-api` 时，所有持久化数据都会保存在 `D:\new-api\data`，不会写入 Docker 管理的命名卷。开发 Compose 与当前源码 Compose 共用 PostgreSQL 数据目录，因此不要同时启动两套服务。
+
 正式对外提供服务前，请替换 `docker-compose.yml` 中默认的数据库和 Redis 密码，设置稳定的 `SESSION_SECRET`，并根据反向代理配置 HTTPS 相关选项。
 
 <details>

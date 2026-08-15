@@ -136,6 +136,8 @@ docker compose -f docker-compose.yml -f docker-compose.current.yml up -d --build
 
 The production `Dockerfile` embeds the frontend build in the backend image. `docker-compose.dev.yml` is a development-only setup: it builds the backend and expects the frontend Rsbuild server to run separately.
 
+The current-source override reuses the development PostgreSQL data at `./data/dev/postgres` so existing local accounts and settings remain available. Redis, application data, and logs are persisted under `./data/current/`. For example, when the repository is located at `D:\new-api`, all persistent data remains under `D:\new-api\data` instead of a Docker-managed named volume. Do not run the development and current-source Compose stacks at the same time because they share the PostgreSQL data directory.
+
 Before exposing the service publicly, replace the default database and Redis passwords in `docker-compose.yml`, set a stable `SESSION_SECRET`, and configure HTTPS-related settings for your reverse proxy.
 
 <details>
